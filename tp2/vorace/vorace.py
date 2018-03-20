@@ -44,7 +44,7 @@ def vorace(fileToRead):
                 del blocksArray[x]
         blocksCandidats.sort(key=lambda x: x.ratio, reverse=False);
         glouton(blocksCandidats)
-        blocksCandidats.clear()
+        del blocksCandidats[:]
 
 
 if __name__ == '__main__':
@@ -53,5 +53,5 @@ if __name__ == '__main__':
         vorace(file)
         print(hauteurSolution)
         hauteurSolution = 0
-        solution.clear()
+        del solution[:]
         break
