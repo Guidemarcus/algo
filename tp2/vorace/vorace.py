@@ -42,7 +42,7 @@ def vorace(fileToRead):
                 x = randint(0, (len(blocksArray)-1))
                 blocksCandidats.append(blocksArray[x])
                 del blocksArray[x]
-        blocksCandidats.sort(key=lambda x: x.ratio, reverse=False);
+        blocksCandidats.sort(key=lambda x: x.ratio, reverse=False)
         glouton(blocksCandidats)
         del blocksCandidats[:]
 
@@ -54,4 +54,3 @@ if __name__ == '__main__':
         print(hauteurSolution)
         hauteurSolution = 0
         del solution[:]
-        break
