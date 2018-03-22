@@ -73,8 +73,7 @@ def convertFileToBlock(fileBlocks):
 
 
 def readFileInfo(fileToRead, sol):
-    name = "../data/b50000_" + str(fileToRead+1) + ".txt"
-    fileBlocks = open(name)
+    fileBlocks = open("../data/"+fileToRead)
     blocksArray = convertFileToBlock(fileBlocks)
 
     #initialiser premiere solution
@@ -127,15 +126,14 @@ def printSolution(sol):
 if __name__ == '__main__':
     txtFiles = os.listdir("../data")
     sol = Solution()
-    for file in range(10):
-        for x in range(10):
-            start = time.time()
-            readFileInfo(file, sol)
-            end = time.time()
-            print(end - start)
-            print(sol.hauteurSolution)
-            # reinitialiser
-            sol.hauteurSolution = 0
-            del sol.tourSolution[:]
-            del prison[:]
+    for file in txtFiles:
+        start = time.time()
+        readFileInfo(file, sol)
+        end = time.time()
+        print(end - start)
+        print(sol.hauteurSolution)
+        # reinitialiser
+        sol.hauteurSolution = 0
+        del sol.tourSolution[:]
+        del prison[:]
 

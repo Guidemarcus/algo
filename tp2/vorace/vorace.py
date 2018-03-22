@@ -1,6 +1,7 @@
 import os
 from bloque import Bloque
 from random import randint
+import time
 
 
 candidatNum = 60
@@ -33,6 +34,7 @@ def vorace(fileToRead):
         blocksArray.append(newBlock)
         line = fileBlocks.readline()
     fileBlocks.close()
+    start = time.time()
     blocksCandidats = []
     while len(blocksArray) > 0:
         for i in range(0, candidatNum):
@@ -45,12 +47,12 @@ def vorace(fileToRead):
         blocksCandidats.sort(key=lambda x: x.ratio, reverse=False)
         glouton(blocksCandidats)
         del blocksCandidats[:]
+    end = time.time()
 
 
 if __name__ == '__main__':
     txtFiles = os.listdir("../data")
     for file in txtFiles:
         vorace(file)
-        print(hauteurSolution)
         hauteurSolution = 0
         del solution[:]
