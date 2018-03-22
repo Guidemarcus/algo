@@ -3,6 +3,7 @@ from bloque import Bloque
 from prisonnier import Prisonnier
 from solution import Solution
 from random import randint
+import time
 
 
 
@@ -72,7 +73,8 @@ def convertFileToBlock(fileBlocks):
 
 
 def readFileInfo(fileToRead, sol):
-    fileBlocks = open("../data/" + fileToRead)
+    name = "../data/b50000_" + str(fileToRead+1) + ".txt"
+    fileBlocks = open(name)
     blocksArray = convertFileToBlock(fileBlocks)
 
     #initialiser premiere solution
@@ -115,12 +117,25 @@ def readFileInfo(fileToRead, sol):
             else:
                 pris.addJour()
 
+
+def printSolution(sol):
+    for block in sol.tourSolution:
+        tempAffichage = "["+block.largeur+","+block.profondeur+","+block.hauteur+"]"
+        print(tempAffichage)
+
+
 if __name__ == '__main__':
     txtFiles = os.listdir("../data")
     sol = Solution()
-    for file in txtFiles:
-        readFileInfo(file, sol)
-        print(sol.hauteurSolution)
-        #reinitialiser
-        sol.hauteurSolution = 0
-        del sol.tourSolution[:]
+    for file in range(10):
+        for x in range(10):
+            start = time.time()
+            readFileInfo(file, sol)
+            end = time.time()
+            print(end - start)
+            print(sol.hauteurSolution)
+            # reinitialiser
+            sol.hauteurSolution = 0
+            del sol.tourSolution[:]
+            del prison[:]
+
