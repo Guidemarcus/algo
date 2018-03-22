@@ -73,7 +73,6 @@ def convertFileToBlock(fileBlocks):
 
 def readFileInfo(fileToRead, sol):
     fileBlocks = open("../data/" + fileToRead)
-    print(fileToRead)
     blocksArray = convertFileToBlock(fileBlocks)
 
     #initialiser premiere solution

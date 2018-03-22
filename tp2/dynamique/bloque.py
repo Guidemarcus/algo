@@ -11,6 +11,3 @@ class Bloque:
         self.profondeur = int(info[1])
         self.surface = self.largeur * self.profondeur
         self.ratio = self.surface / self.hauteur
-
-    def getLongueur(self):
-        return self.longueur
