@@ -86,7 +86,7 @@ def readFileInfo(fileToRead, sol):
     iterationModificationTour = 0
 
     #codition d'arret
-    while len(blocksArray) > 0 and iterationModificationTour != 100:
+    while iterationModificationTour != 100:
         tempSolution = sol.tourSolution[:]
 
         #remplir voisinage
@@ -96,8 +96,8 @@ def readFileInfo(fileToRead, sol):
                 blocksCandidats.append(blocksArray[x])
                 del blocksArray[x]
         blocksCandidats.sort(key=lambda x: x.ratio, reverse=False)
-
-        algoTabou(blocksCandidats, sol)
+        if len(blocksCandidats) > 0:
+            algoTabou(blocksCandidats, sol)
 
         #verifier condition d'arret
         if tempSolution == sol.tourSolution:
