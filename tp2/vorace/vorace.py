@@ -1,6 +1,7 @@
 import os
 from bloque import Bloque
 from random import randint
+import sys
 import time
 
 
@@ -25,7 +26,9 @@ def glouton(candidat):
 
 
 def vorace(fileToRead):
-    fileBlocks = open("../data/" + fileToRead)
+    #fileBlocks = open("../data/" + fileToRead)
+    if "-e" in sys.argv:
+        fileBlocks = open(sys.argv[sys.argv.index("-e") + 1])
     blocksArray = []
     line = fileBlocks.readline()
     while line:
@@ -34,7 +37,6 @@ def vorace(fileToRead):
         blocksArray.append(newBlock)
         line = fileBlocks.readline()
     fileBlocks.close()
-    start = time.time()
     blocksCandidats = []
     while len(blocksArray) > 0:
         for i in range(0, candidatNum):
@@ -44,15 +46,26 @@ def vorace(fileToRead):
                 x = randint(0, (len(blocksArray)-1))
                 blocksCandidats.append(blocksArray[x])
                 del blocksArray[x]
-        blocksCandidats.sort(key=lambda x: x.ratio, reverse=False)
+        blocksCandidats.sort(key=lambda x: x.ratio, reverse=False);
         glouton(blocksCandidats)
         del blocksCandidats[:]
-    end = time.time()
 
+def printSolution():
+    global solution
+    for x in solution:
+        print(x.largeur, x.profondeur, x.hauteur)
 
 if __name__ == '__main__':
-    txtFiles = os.listdir("../data")
-    for file in txtFiles:
-        vorace(file)
-        hauteurSolution = 0
-        del solution[:]
+    #txtFiles = os.listdir("../data")
+    #for file in txtFiles:
+    start  = time.time()
+    #vorace(file)
+    vorace("")
+    end = time.time()
+    if "-t" in sys.argv:
+        print(end - start)
+    if "-p" in sys.argv:
+        printSolution()
+       # print(hauteurSolution)
+    hauteurSolution = 0
+    del solution[:]

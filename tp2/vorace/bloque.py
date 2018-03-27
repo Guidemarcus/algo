@@ -14,3 +14,11 @@ class Bloque:
 
     def getLongueur(self):
         return self.longueur
+
+    # def makeBloque(longueur, largeur, hauteur):
+    #    bloc = Bloque()
+    ##   bloc.longueur = longueur
+    #   bloc.largeur = largeur
+    ##  bloc.hauteur = hauteur
+    #  print(bloc.longueur)
+    #  return bloc

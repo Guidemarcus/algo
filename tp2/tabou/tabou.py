@@ -4,6 +4,7 @@ from prisonnier import Prisonnier
 from solution import Solution
 from random import randint
 import time
+import sys
 
 
 
@@ -73,7 +74,7 @@ def convertFileToBlock(fileBlocks):
 
 
 def readFileInfo(fileToRead, sol):
-    fileBlocks = open("../data/"+fileToRead)
+    fileBlocks = open(fileToRead)
     blocksArray = convertFileToBlock(fileBlocks)
 
     #initialiser premiere solution
@@ -86,7 +87,7 @@ def readFileInfo(fileToRead, sol):
     iterationModificationTour = 0
 
     #codition d'arret
-    while iterationModificationTour != 100:
+    while len(blocksArray) > 0 and iterationModificationTour != 100:
         tempSolution = sol.tourSolution[:]
 
         #remplir voisinage
@@ -96,8 +97,8 @@ def readFileInfo(fileToRead, sol):
                 blocksCandidats.append(blocksArray[x])
                 del blocksArray[x]
         blocksCandidats.sort(key=lambda x: x.ratio, reverse=False)
-        if len(blocksCandidats) > 0:
-            algoTabou(blocksCandidats, sol)
+
+        algoTabou(blocksCandidats, sol)
 
         #verifier condition d'arret
         if tempSolution == sol.tourSolution:
@@ -119,21 +120,23 @@ def readFileInfo(fileToRead, sol):
 
 def printSolution(sol):
     for block in sol.tourSolution:
-        tempAffichage = "["+block.largeur+","+block.profondeur+","+block.hauteur+"]"
-        print(tempAffichage)
+        print(block.largeur, block.profondeur, block.hauteur)
 
 
 if __name__ == '__main__':
-    txtFiles = os.listdir("../data")
+    #txtFiles = os.listdir("../data")
     sol = Solution()
-    for file in txtFiles:
-        start = time.time()
-        readFileInfo(file, sol)
-        end = time.time()
+    #for file in txtFiles:
+    start = time.time()
+    if "-e" in sys.argv:
+        readFileInfo(sys.argv[sys.argv.index("-e") + 1], sol)
+    end = time.time()
+    if "-t" in sys.argv:
         print(end - start)
-        print(sol.hauteurSolution)
-        # reinitialiser
-        sol.hauteurSolution = 0
-        del sol.tourSolution[:]
-        del prison[:]
+    if "-p" in sys.argv:
+        printSolution(sol)
+    # reinitialiser
+    sol.hauteurSolution = 0
+    del sol.tourSolution[:]
+    del prison[:]
 
